@@ -1,0 +1,65 @@
+---
+# tasks file for deploy_zabbix-agent_on_hosts
+- block: # ========Block for RedHat======
+  - name: Install zabbix-agent on RedHat Family
+    yum:
+            name: zabbix-agent
+            state: latest
+
+    #  - name: Stop service zabbix-agent
+    #become: yes
+    #service:
+    #       name=zabbix-agent
+    #       state=stopped
+
+    #  - name: Remove zabbix config file
+    #become: yes
+    #file:
+    #       path=/etc/zabbix/zabbix_agentd.conf
+    #       state=absent
+
+    #  - name: Create new zabbix config file from template
+    #become: yes
+    #templates:
+    #       src: "templates/zabbix_agentd.conf.j2"
+    #       dest: "/etc/zabbix/zabbix_agentd.conf"
+
+  - name: Start service zabbix-agent
+    become: yes
+    service:
+            name=zabbix-agent
+            state=started
+  when: ansible_os_family == "RedHat"
+
+- block: #=======Block for Debian======
+  - name: Install zabbix-agent on Debian Family
+    apt:
+            name: zabbix-agent
+            state: latest
+  
+    #  - name: Stop service zabbix-agent
+    #become: yes
+    #service:
+    #       name=zabbix-agent
+    #       state=stopped
+
+    #  - name: Remove zabbix config file
+    #become: yes
+    #file:
+    #       path=/etc/zabbix/zabbix_agentd.conf
+    #       state=absent
+
+    #  - name: Create new zabbix config file from templates
+    #become: yes
+    #templates:
+    #       src="templates/zabbix_agentd.conf.j2"
+    #       dest="/etc/zabbix/zabbix_agentd.conf"
+    #       mode=0555
+
+  - name: Start service zabbix-agent
+    become: yes
+    service:
+            name=zabbix-agent
+            state=started
+            enabled=yes
+  when: ansible_os_family == "Debian"
