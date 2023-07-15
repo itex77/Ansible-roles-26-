@@ -1,0 +1,31 @@
+---
+# tasks file for deploy_zabbix-agent_on_hosts
+- hosts: servers
+  tasks:
+          
+
+  - block: # ========Block for RedHat======
+    - name: Stop service zabbix-agent
+      ansible.builtin.service:
+            name: zabbix-agent
+            state: stopped
+    - name: Uninstall zabbix-agent on RedHat Family
+      ansible.builtin.yum:
+            name: zabbix-agent
+            state: absent
+
+    when: ansible_os_family == "RedHat"
+
+  - block: #=======Block for Debian======
+  
+    - name: Stop service zabbix-agent
+      ansible.builtin.service:
+            name: zabbix-agent
+            state: stopped
+
+    - name: Uninstall zabbix-agent on Debian Family
+      ansible.builtin.apt:
+            name: zabbix-agent
+            state: absent
+
+    when: ansible_os_family == "Debian"         

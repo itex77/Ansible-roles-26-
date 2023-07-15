@@ -1,0 +1,6 @@
+---
+- hosts: servers 
+  become: yes
+
+  roles:
+          - { role: deploy_zabbix-agent_on_hosts, when: ansible_system == 'Linux' }
