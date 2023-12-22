@@ -46,7 +46,7 @@
 ansible.my ansible_ssh_host=10.129.0.32
 
 [servers]
-centos.my ansible_ssh_host=10.129.0.35 ansible_user=itex ansible_ssh_private_key_file=~/.ssh/id_rsa
+centos.my ansible_ssh_host=10.129.0.35 ansible_user=itex ansible_ssh_private_key_file>=~/.ssh/id_rsa
 ubuntu.my ansible_ssh_host=10.129.0.5 ansible_user=itex ansible_ssh_private_key_file>=~/.ssh/id_rsa
 
 [bd]
